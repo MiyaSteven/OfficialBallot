@@ -1,0 +1,40 @@
+@model Proposal
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Edit Proposal</h1>
+            </div>
+            <div class="col-sm-6 text-right">
+                <a href="/ballot/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="row">
+            <form asp-action="UpdateProposal" asp-controller="Home" method="post">
+                <div class="form-group row">
+                    <label asp-for="ProposalName" class="col-sm-4"></label>
+                    <span class="col-sm-8 text-danger" asp-validation-for="ProposalName"></span>
+                    <input asp-for="ProposalName" class="col-sm-12 form-control">
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Description" class="col-sm-4"></label>
+                    <span class="col-sm-8 text-danger" asp-validation-for="Description"></span>
+                    <input asp-for="Description" class="col-sm-12 form-control">
+                </div>                
+                <div class="form-group row">
+                    <input type="submit" value="Create" class="col-sm-4 offset-sm-4 btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
