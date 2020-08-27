@@ -1,0 +1,58 @@
+@model BallotWrapper
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Proposal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <br>
+    <div class="row">
+            <div class="col-sm-10 offset-sm-1">
+                @foreach(Proposal proposal in Model.AllProposals)
+                {
+                <h1>@proposal.ProposalName</h1>
+                <table class="table">
+                    <thead>
+                        <th>Proposal Description:</th>
+                        <th>@proposal.ProposalName Voters:</th>
+                        <th>Vote for this proposal:</th>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>@proposal.Description</td>
+                                <td>
+                                @foreach(RSVP voted in proposal.ProposalVoters)
+                                {
+                                    <div>
+                                        @voted.Voter.FirstName
+                                    </div>
+                                    <br>
+                                }
+                                </td>
+                                <td>
+                                    @if(proposal.VoterId==Model.UserForm.UserId)
+                                    {
+                                        <a href="/ballot/@proposal.ProposalId/edit"><button class="btn btn-primary">Edit</button></a> 
+                                        <a href="/ballot/@proposal.ProposalId/delete"><button class="btn btn-danger">Delete</button></a>
+                                    }
+                                    else if(proposal.ProposalVoters.Any(r => r.VoterId == Model.UserForm.UserId))
+                                    {
+                                        <a href="/ballot/proposals/@proposal.ProposalId/revoke"><button class="btn btn-secondary">Revoke your Vote!</button></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/ballot/proposals/@proposal.ProposalId/vote"><button class="btn btn-primary">Cast your Vote!</button></a>
+                                    }
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+                }
+            </div>
+        </div>
+</body>
+</html>
